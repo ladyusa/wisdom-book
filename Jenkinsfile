@@ -7,14 +7,14 @@ pipeline {
                         url: 'https://github.com/ladyusa/wisdom-book'
                }
           }
+          stage('Test') {
+               steps {
+                    echo 'mvn test'
+               }
+          }
           stage('Build') {
                steps {
                     sh 'mvn package -DskipTests'
-               }
-          }
-          stage('Test') {
-               steps {
-                    echo 'testing...'
                }
           }
           stage('Deploy') {
