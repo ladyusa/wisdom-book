@@ -1,15 +1,23 @@
 pipeline {
-     agent any
+     agent {
+          docker {
+               image 'maven:3.9-amazoncorretto-21'  
+               args '-p 33333:8090' 
+          }
+     }
+     environment {
+          HOME = '.'
+     }
      stages {
           stage('Source') {
                steps {
                     git branch: 'main',
-                        url: 'https://github.com/ladyusa/wisdom-book'
+                        url: 'https://github.com/ladyusa/wisdom-book.git'
                }
           }
           stage('Test') {
                steps {
-                    echo 'mvn test'
+                    sh 'mvn test'
                }
           }
           stage('Build') {
